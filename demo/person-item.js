@@ -1,7 +1,7 @@
-import '../../@polymer/polymer/polymer-element.js';
-import '../../@polymer/iron-icons/social-icons.js';
+import '@polymer/polymer/polymer-element.js';
+import '@polymer/iron-icons/social-icons.js';
 import '../vaadin-item.js';
-import { html } from '../../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 class PersonItemElement extends Vaadin.ItemElement {
   static get template() {
     return html`

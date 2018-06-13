@@ -4,7 +4,7 @@ import '../../elements-demo-resources/common.js';
 import '../color.js';
 import '../typography.js';
 import '../shadow.js';
-import { updateStyles } from '../../@polymer/polymer/lib/mixins/element-mixin.js';
+import { updateStyles } from '@polymer/polymer/lib/mixins/element-mixin.js';
 const $_documentContainer = document.createElement('template');
 $_documentContainer.setAttribute('style', 'display: none;');
 

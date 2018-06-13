@@ -1,6 +1,6 @@
-import { PolymerElement } from '../../@polymer/polymer/polymer-element.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '../color.js';
-import { html } from '../../@polymer/polymer/lib/utils/html-tag.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 class MyDarkUI extends PolymerElement {
   static get template() {
     return html`
