@@ -1,0 +1,88 @@
+import './font-icons.js';
+import './color.js';
+import '../vaadin-dropdown-menu/src/vaadin-dropdown-menu.js';
+import './vaadin-text-field.js';
+import './vaadin-item.js';
+import './vaadin-list-box.js';
+import './mixins/menu-overlay.js';
+const $_documentContainer = document.createElement('template');
+$_documentContainer.setAttribute('style', 'display: none;');
+
+$_documentContainer.innerHTML = `<dom-module id="material-dropdown-menu" theme-for="vaadin-dropdown-menu">
+  <template>
+    <style>
+      :host {
+        display: inline-flex;
+      }
+
+      [part\$="button"] {
+        flex: none;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        font-size: 24px;
+        text-align: center;
+        color: var(--material-secondary-text-color);
+        transition: 0.2s color, 0.2s transform;
+      }
+
+      [part\$="button"]:hover {
+        color: var(--material-text-color);
+      }
+
+      [part\$="button"]::before {
+        font-family: "material-icons";
+      }
+
+      [part="toggle-button"]::before {
+        content: var(--material-icons-dropdown);
+      }
+
+      :host([opened]) [part="toggle-button"] {
+        transform: rotate(180deg);
+      }
+
+      /* Disabled */
+
+      :host([disabled]) {
+        pointer-events: none;
+      }
+
+      :host([disabled]) [part\$="button"] {
+        color: var(--material-disabled-text-color);
+      }
+    </style>
+  </template>
+</dom-module><dom-module id="material-dropdown-menu-text-field" theme-for="vaadin-dropdown-menu-text-field">
+  <template>
+    <style>
+      :host {
+        width: 100%;
+      }
+
+      :host([disabled]) [part="input-field"],
+      [part="input-field"],
+      [part="value"] {
+        cursor: default;
+      }
+
+      [part="input-field"]:focus {
+        outline: none;
+      }
+
+      ::slotted([part="value"]) {
+        display: flex;
+      }
+    </style>
+  </template>
+</dom-module><dom-module id="material-dropdown-menu-overlay" theme-for="vaadin-dropdown-menu-overlay">
+  <template>
+    <style include="material-menu-overlay">
+      [part="overlay"] {
+        min-width: var(--vaadin-dropdown-menu-text-field-width);
+      }
+    </style>
+  </template>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);

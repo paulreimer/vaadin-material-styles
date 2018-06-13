@@ -1,0 +1,68 @@
+import './color.js';
+import './font-icons.js';
+import '../vaadin-combo-box/src/vaadin-combo-box.js';
+import './vaadin-text-field.js';
+import './vaadin-combo-box-dropdown.js';
+import './vaadin-combo-box-item.js';
+const $_documentContainer = document.createElement('template');
+$_documentContainer.setAttribute('style', 'display: none;');
+
+$_documentContainer.innerHTML = `<dom-module id="material-combo-box" theme-for="vaadin-combo-box">
+  <template>
+    <style>
+      :host {
+        display: inline-flex;
+        outline: none;
+      }
+
+      [part\$="button"] {
+        flex: none;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        font-size: 24px;
+        text-align: center;
+        color: var(--material-secondary-text-color);
+        transition: 0.2s color, 0.2s transform;
+      }
+
+      [part\$="button"]:hover {
+        color: var(--material-text-color);
+      }
+
+      [part\$="button"]::before {
+        font-family: "material-icons";
+      }
+
+      [part="toggle-button"]::before {
+        content: var(--material-icons-dropdown);
+      }
+
+      :host([opened]) [part="toggle-button"] {
+        transform: rotate(180deg);
+      }
+
+      [part="clear-button"] {
+        width: 18px;
+        height: 18px;
+        padding: 3px;
+        font-size: 18px;
+        line-height: 18px;
+      }
+
+      [part="clear-button"]::before {
+        content: var(--material-icons-clear);
+      }
+
+      /* Disabled & read-only */
+
+      :host([disabled]) [part\$="button"],
+      :host([readonly]) [part\$="button"] {
+        color: var(--material-disabled-color);
+      }
+
+    </style>
+  </template>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);

@@ -7,11 +7,11 @@
 
   <title>Material Theme Dialog</title>
 
-  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-  <link rel="import" href="common.html">
+  <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <script type="module" src="./common.js"></script>
 
-  <link rel="import" href="../vaadin-dialog.html">
-  <link rel="import" href="../vaadin-button.html">
+  <script type="module" src="../vaadin-dialog.js"></script>
+  <script type="module" src="../vaadin-button.js"></script>
 
   <style>
     [unresolved] {
@@ -83,12 +83,15 @@
       </template>
     </nice-demo-snippet>
 
-    <script>
-        window.openDialog = function(id) {
-          var dialog = document.querySelector(id);
-          dialog.opened = true;
-        };
-      </script>
+    <script type="module">
+import './common.js';
+import '../vaadin-dialog.js';
+import '../vaadin-button.js';
+window.openDialog = function(id) {
+  var dialog = document.querySelector(id);
+  dialog.opened = true;
+};
+</script>
   </div>
 </body>
 </html>

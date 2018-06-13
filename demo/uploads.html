@@ -7,10 +7,10 @@
 
   <title>Material Theme Upload</title>
 
-  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-  <link rel="import" href="common.html">
+  <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <script type="module" src="./common.js"></script>
 
-  <link rel="import" href="../vaadin-upload.html">
+  <script type="module" src="../vaadin-upload.js"></script>
 
   <style>
     [unresolved] {
@@ -37,47 +37,46 @@
     </nice-demo-snippet>
 
     <script src="../../mock-http-request/lib/mock.js"></script>
-    <script>
-      // Use MockHttpRequest in demos
-      function mockXhrGenerator(file) {
-        var xhr = new MockHttpRequest();
-        xhr.upload = {};
-        xhr.onsend = function() {
-          if (xhr.upload.onloadstart) {
-            xhr.upload.onloadstart();
-          }
-          var total = file && file.size || 1024, done = 0;
-          function start() {
-            setTimeout(progress, 1000);
-          }
-          function progress() {
-            xhr.upload.onprogress({total: total, loaded: done});
-            if (done < total) {
-              setTimeout(progress, 200);
-              done = Math.min(total, done + 254000);
-            } else if (!file.abort) {
-              setTimeout(finish, 1000);
-            }
-          }
-          function finish() {
-            xhr.receive(200, '{"message":"OK"}');
-          }
-          start();
-        };
-        return xhr;
+    <script type="module">
+import './common.js';
+import '../vaadin-upload.js';
+// Use MockHttpRequest in demos
+function mockXhrGenerator(file) {
+  var xhr = new MockHttpRequest();
+  xhr.upload = {};
+  xhr.onsend = function() {
+    if (xhr.upload.onloadstart) {
+      xhr.upload.onloadstart();
+    }
+    var total = file && file.size || 1024, done = 0;
+    function start() {
+      setTimeout(progress, 1000);
+    }
+    function progress() {
+      xhr.upload.onprogress({total: total, loaded: done});
+      if (done < total) {
+        setTimeout(progress, 200);
+        done = Math.min(total, done + 254000);
+      } else if (!file.abort) {
+        setTimeout(finish, 1000);
       }
-      window.addEventListener('WebComponentsReady', () => {
-        // Monkey-patch vaadin-upload prototype to use MockHttpRequest
-        Object.getPrototypeOf(document.createElement('vaadin-upload'))._createXhr = mockXhrGenerator;
+    }
+    function finish() {
+      xhr.receive(200, '{"message":"OK"}');
+    }
+    start();
+  };
+  return xhr;
+}
+// Monkey-patch vaadin-upload prototype to use MockHttpRequest
+Object.getPrototypeOf(document.createElement('vaadin-upload'))._createXhr = mockXhrGenerator;
 
-        var upload = document.querySelector('vaadin-upload');
-        upload.addEventListener('upload-response', function(event) {
-          if (event.detail.file.size > 1024 * 1024)
-            event.detail.file.error = 'The file is too big';
-      });
-
-    });
-    </script>
+var upload = document.querySelector('vaadin-upload');
+upload.addEventListener('upload-response', function(event) {
+  if (event.detail.file.size > 1024 * 1024)
+    event.detail.file.error = 'The file is too big';
+});
+</script>
 
   </div>
 </body>
